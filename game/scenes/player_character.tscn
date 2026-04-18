@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sgp6g"]
 
-[node name="Character" type="CharacterBody3D" unique_id=1558219109]
+[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1558219109]
 script = ExtResource("1_agfs1")
 echo_material = ExtResource("2_rkhd4")
 
