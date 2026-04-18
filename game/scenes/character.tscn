@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://dwmvaje7oyxmi"]
 
 [ext_resource type="Script" uid="uid://cq7iko6e6hkl8" path="res://scripts/character.gd" id="1_agfs1"]
+[ext_resource type="Material" uid="uid://doaqtoc3f68k7" path="res://materials/echo.tres" id="2_rkhd4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sgp6g"]
 
 [node name="Character" type="CharacterBody3D" unique_id=1558219109]
 script = ExtResource("1_agfs1")
+echo_material = ExtResource("2_rkhd4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1168392577]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29368412, 0)
 shape = SubResource("CapsuleShape3D_sgp6g")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1864286099]
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1140765107]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0137248, 0)

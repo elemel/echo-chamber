@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Signal"
+config/name="Chamber"
 run/main_scene="uid://bflbn4pr7gko3"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -61,3 +61,4 @@ jump={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

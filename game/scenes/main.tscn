@@ -1,12 +1,44 @@
 [gd_scene format=3 uid="uid://bflbn4pr7gko3"]
 
 [ext_resource type="PackedScene" uid="uid://dwmvaje7oyxmi" path="res://scenes/character.tscn" id="1_o5qli"]
+[ext_resource type="Material" uid="uid://doaqtoc3f68k7" path="res://materials/echo.tres" id="1_sugp2"]
+[ext_resource type="Shader" uid="uid://bkdt1bfpqv5xy" path="res://shaders/echo.gdshader" id="2_0wfyh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0wfyh"]
+render_priority = 0
+shader = ExtResource("2_0wfyh")
+shader_parameter/ping_origin = Vector3(0, 0, 0)
+shader_parameter/ping_time = 0.0
+shader_parameter/wave_speed = 5.0
+shader_parameter/wave_width = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
+render_priority = 0
+shader = ExtResource("2_0wfyh")
+shader_parameter/ping_origin = Vector3(0, 0, 0)
+shader_parameter/ping_time = 0.0
+shader_parameter/wave_speed = 5.0
+shader_parameter/wave_width = 0.5
 
 [node name="Main" type="Node3D" unique_id=207641871]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1642880060]
 transform = Transform3D(12.505366, 0, 0, 0, 1, 0, 0, 0, 12.26446, 0, -0.4918872, 0)
+material_override = ExtResource("1_sugp2")
 use_collision = true
+material = SubResource("ShaderMaterial_0wfyh")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1932565359]
+transform = Transform3D(1.7793005, -0.3817273, -0.47603667, 1.0317613, 0.7032978, 0.5858618, 0.13771486, -0.33712986, 1.761195, 1.789289, 0.21886066, 0.03894671)
+material_override = ExtResource("1_sugp2")
+use_collision = true
+material = SubResource("ShaderMaterial_sugp2")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=2106970956]
+transform = Transform3D(1.3726535, -0.6373893, 0.2555675, -1.178827, -0.3363583, 1.3856506, -0.98772264, -0.48435318, -1.2985799, -3.3760648, 0.21886066, 0.03894671)
+material_override = ExtResource("1_sugp2")
+use_collision = true
+material = SubResource("ShaderMaterial_sugp2")
 
 [node name="Character" parent="." unique_id=1558219109 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7020446, 0)

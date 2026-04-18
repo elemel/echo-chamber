@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bsmxab8wp12li"]
+
+[ext_resource type="Script" uid="uid://q2qkwfi8w3e8" path="res://scripts/dripper.gd" id="1_ijcnt"]
+
+[node name="Dripper" type="Node3D" unique_id=1238878047 node_paths=PackedStringArray("drip_a", "drip_b")]
+script = ExtResource("1_ijcnt")
+drip_a = NodePath("DripA")
+drip_b = NodePath("DripB")
+
+[node name="DripA" type="AudioStreamPlayer3D" parent="." unique_id=457774111]
+max_polyphony = 3
+
+[node name="DripB" type="AudioStreamPlayer3D" parent="." unique_id=1541765668]
+max_polyphony = 3
