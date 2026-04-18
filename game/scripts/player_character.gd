@@ -58,4 +58,4 @@ func _physics_process(delta: float) -> void:
 
 func ping() -> void:
 	var ping_position: Vector3 = $CameraPivot.global_position
-	main.add_ping(ping_position)
+	main.add_ping(ping_position, Color.WHITE)
