@@ -1,7 +1,7 @@
 extends CanvasLayer
 class_name PauseMenu
 
-@export var pause_menu: CanvasLayer
+@export var hud: CanvasLayer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -36,6 +36,7 @@ func pause() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		get_tree().paused = true
 		visible = true
+		hud.visible = false
 
 
 func unpause() -> void:
@@ -43,3 +44,4 @@ func unpause() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_tree().paused = false
 		visible = false
+		hud.visible = true

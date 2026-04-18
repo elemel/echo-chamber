@@ -10,7 +10,7 @@ uniform float ping_ranges[PING_COUNT];
 uniform vec3 ping_colors[PING_COUNT];
 
 uniform float wave_speed = 5.0;
-uniform float wave_width = 0.5;
+uniform float wave_width = 1.0;
 
 uniform float time = 0.0;
 uniform float debug = 1.0;
