@@ -4,14 +4,14 @@ class_name PlayerCharacter
 @export var move_speed := 5.0
 @export var move_acceleration := 20.0
 @export var jump_speed := 7.0
+@export var ping_cooldown := 0.5
 
 @export var mouse_sensitivity := 0.002
 @export var echo_material: ShaderMaterial
 
 var main: Main
 var pitch := 0.0
-var ping_time := -1000.0
-var ping_origin := Vector3.ZERO
+var current_ping_cooldown := 0.0
 
 
 func _ready() -> void:
@@ -19,9 +19,6 @@ func _ready() -> void:
 
 
 func _input(event):
-	if event is InputEventMouseButton and event.pressed:
-		ping()
-
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 
@@ -32,6 +29,12 @@ func _input(event):
 
 
 func _physics_process(delta: float) -> void:
+	current_ping_cooldown -= delta
+
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and current_ping_cooldown < 0.0:
+		current_ping_cooldown = ping_cooldown * randf_range(0.9, 1.1)
+		ping()
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -58,4 +61,4 @@ func _physics_process(delta: float) -> void:
 
 func ping() -> void:
 	var ping_position: Vector3 = $CameraPivot.global_position
-	main.add_ping(ping_position, Color.WHITE)
+	main.add_ping(ping_position)
