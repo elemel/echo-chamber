@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name PlayerCharacter
 
 @export var move_speed := 5.0
 @export var move_acceleration := 20.0
@@ -24,6 +24,7 @@ func _input(event):
 		pitch = clamp(pitch, deg_to_rad(-90), deg_to_rad(90))
 
 		$CameraPivot.rotation.x = pitch
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
