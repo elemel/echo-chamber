@@ -1,8 +1,9 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+@export var move_speed := 5.0
+@export var move_acceleration := 20.0
+@export var jump_speed := 5.0
 
 
 func _physics_process(delta: float) -> void:
@@ -12,17 +13,19 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_speed
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+	if is_on_floor():
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+		var target_ground_velocity := Vector2(direction.x, direction.z) * move_speed
+		var ground_velocity := Vector2(velocity.x, velocity.z)
+		ground_velocity = ground_velocity.move_toward(target_ground_velocity, move_acceleration * delta)
+
+		velocity.x = ground_velocity.x
+		velocity.z = ground_velocity.y
 
 	move_and_slide()
