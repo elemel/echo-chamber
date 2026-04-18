@@ -8,7 +8,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
 font_size = 50
 
-[node name="Main" type="Node3D" unique_id=207641871]
+[node name="Main" type="Node3D" unique_id=207641871 groups=["mains"]]
 script = ExtResource("1_sugp2")
 echo_material = ExtResource("2_jyhfs")
 

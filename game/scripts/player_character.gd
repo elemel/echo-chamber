@@ -8,9 +8,14 @@ class_name PlayerCharacter
 @export var mouse_sensitivity := 0.002
 @export var echo_material: ShaderMaterial
 
+var main: Main
 var pitch := 0.0
 var ping_time := -1000.0
 var ping_origin := Vector3.ZERO
+
+
+func _ready() -> void:
+	main = get_tree().get_first_node_in_group("mains")
 
 
 func _input(event):
@@ -52,8 +57,5 @@ func _physics_process(delta: float) -> void:
 
 
 func ping() -> void:
-	ping_time = Time.get_ticks_msec() / 1000.0
-	ping_origin = $CameraPivot.global_position
-
-	echo_material.set_shader_parameter("ping_time", ping_time)
-	echo_material.set_shader_parameter("ping_origin", ping_origin)
+	var ping_position: Vector3 = $CameraPivot.global_position
+	main.add_ping(ping_position)
