@@ -23,4 +23,4 @@ func _physics_process(delta: float) -> void:
 
 
 func ping() -> void:
-	main.add_ping(global_position, ping_range, color)
+	main.add_ping(global_position, Vector3.ZERO, ping_range, color)

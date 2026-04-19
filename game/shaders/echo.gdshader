@@ -5,7 +5,8 @@ shader_type spatial;
 render_mode unshaded;
 
 uniform float ping_times[PING_COUNT];
-uniform vec3 ping_positions[PING_COUNT];
+uniform vec3 ping_origins[PING_COUNT];
+uniform vec3 ping_velocities[PING_COUNT];
 uniform float ping_ranges[PING_COUNT];
 uniform vec3 ping_colors[PING_COUNT];
 
@@ -22,9 +23,11 @@ void fragment() {
 	vec3 color = vec3(0.0);
 
 	for (int i = 0; i < PING_COUNT; ++i) {
-	    float dist = distance(ping_positions[i], world_pos);
+		float delta_time = time - ping_times[i];
+		vec3 ping_position = ping_origins[i] + ping_velocities[i] * delta_time;
+	    float dist = distance(ping_position, world_pos);
 
-	    float wave_front = (time - ping_times[i]) * wave_speed;
+	    float wave_front = delta_time * wave_speed;
 	    float dist_to_wave = abs(dist - wave_front);
 
 		float range_weight = 1.0 - smoothstep(0.0, ping_ranges[i], dist);

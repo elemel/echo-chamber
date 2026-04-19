@@ -1,9 +1,9 @@
 extends CharacterBody3D
 class_name PlayerCharacter
 
-@export var move_speed := 5.0
-@export var move_acceleration := 20.0
-@export var jump_speed := 7.0
+@export var move_speed := 3.0
+@export var move_acceleration := 10.0
+@export var jump_speed := 5.0
 @export var ping_cooldown := 0.5
 
 @export var mouse_sensitivity := 0.002
@@ -78,5 +78,5 @@ func _physics_process(delta: float) -> void:
 
 
 func ping() -> void:
-	var ping_position: Vector3 = $CameraPivot.global_position
-	main.add_ping(ping_position)
+	var ping_origin: Vector3 = $CameraPivot.global_position
+	main.add_ping(ping_origin, velocity)
