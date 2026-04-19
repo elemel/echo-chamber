@@ -8,6 +8,9 @@
 [sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
 font_size = 48
 
+[sub_resource type="LabelSettings" id="LabelSettings_tbgi4"]
+font_color = Color(1, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_jyhfs"]
 
 [node name="Main" type="Node3D" unique_id=207641871 node_paths=PackedStringArray("levels", "menu") groups=["mains"]]
@@ -16,12 +19,13 @@ echo_material = ExtResource("2_jyhfs")
 levels = NodePath("Levels")
 menu = NodePath("Menu")
 
-[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "title_label", "move_label", "jump_label", "throw_flare_label", "pause_label", "start_button", "resume_button", "continue_button", "compass_button", "invert_mouse_button", "quit_button", "exit_button")]
+[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "title_label", "warning_label", "move_label", "jump_label", "throw_flare_label", "pause_label", "start_button", "resume_button", "continue_button", "compass_button", "invert_mouse_button", "quit_button", "exit_button")]
 process_mode = 3
 script = ExtResource("5_tbgi4")
 main = NodePath("..")
 compass_layer = NodePath("../Compass")
 title_label = NodePath("CenterContainer/VBoxContainer/Title")
+warning_label = NodePath("CenterContainer/VBoxContainer/Warning")
 move_label = NodePath("CenterContainer/VBoxContainer/Move")
 jump_label = NodePath("CenterContainer/VBoxContainer/Jump")
 throw_flare_label = NodePath("CenterContainer/VBoxContainer/ThrowFlare")
@@ -53,6 +57,12 @@ horizontal_alignment = 1
 [node name="Control" type="Control" parent="Menu/CenterContainer/VBoxContainer" unique_id=219598647]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+
+[node name="Warning" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=591949384]
+layout_mode = 2
+text = "Warning: Blinking Lights"
+label_settings = SubResource("LabelSettings_tbgi4")
+horizontal_alignment = 1
 
 [node name="Move" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=1702529588]
 layout_mode = 2

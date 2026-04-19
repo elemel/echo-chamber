@@ -73,7 +73,7 @@ material = ExtResource("5_qsp8v")
 transform = Transform3D(0.9604348, 0, 0.27850503, 0, 1, 0, -0.27850503, 0, 0.9604348, -5.9015045, 0, -8.223862)
 collision_mask = 2
 script = ExtResource("6_nt80m")
-message = "You Win"
+next_level_name = "level_3"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Goal" unique_id=133118476]
 shape = SubResource("BoxShape3D_r5dgx")

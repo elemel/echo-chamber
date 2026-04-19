@@ -5,6 +5,7 @@ class_name GameMenu
 @export var compass_layer: CanvasLayer
 
 @export var title_label: Label
+@export var warning_label: Label
 @export var move_label: Label
 @export var jump_label: Label
 @export var throw_flare_label: Label
@@ -54,6 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func update(grab_focus := true) -> void:
 	if message != "":
 		title_label.text = message
+		warning_label.visible = false
 		move_label.visible = false
 		jump_label.visible = false
 		throw_flare_label.visible = false
@@ -71,6 +73,7 @@ func update(grab_focus := true) -> void:
 			continue_button.grab_focus()
 	elif main.level == null:
 		title_label.text = "Echo Chamber"
+		warning_label.visible = true
 		move_label.visible = true
 		jump_label.visible = true
 		throw_flare_label.visible = true
@@ -88,6 +91,7 @@ func update(grab_focus := true) -> void:
 			start_button.grab_focus()
 	else:
 		title_label.text = "Paused"
+		warning_label.visible = true
 		move_label.visible = true
 		jump_label.visible = true
 		throw_flare_label.visible = true

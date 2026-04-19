@@ -3,7 +3,7 @@ class_name PlayerCharacter
 
 @export var move_speed := 3.0
 @export var move_acceleration := 10.0
-@export var jump_speed := 5.0
+@export var jump_speed := 4.0
 @export var flare_cooldown := 1.0
 
 @export var mouse_sensitivity := 0.002
@@ -25,6 +25,7 @@ var pitch := 0.0
 var current_flare_cooldown := 0.0
 var flare_enabled := false
 var flares: Array[Flare]
+
 
 func _ready() -> void:
 	main = get_tree().get_first_node_in_group("mains")
