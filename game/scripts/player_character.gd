@@ -22,20 +22,25 @@ func _ready() -> void:
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * mouse_sensitivity)
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			rotate_y(-event.relative.x * mouse_sensitivity)
 
-		var invert_mouse_scale := -1.0 if main.invert_mouse else 1.0
-		pitch -= invert_mouse_scale * event.relative.y * mouse_sensitivity
-		pitch = clamp(pitch, deg_to_rad(-90), deg_to_rad(90))
+			var invert_mouse_scale := -1.0 if main.invert_mouse else 1.0
+			pitch -= invert_mouse_scale * event.relative.y * mouse_sensitivity
+			pitch = clamp(pitch, deg_to_rad(-90), deg_to_rad(90))
 
-		$CameraPivot.rotation.x = pitch
+			$CameraPivot.rotation.x = pitch
 
 	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			sticky_ping_enabled = false
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+				sticky_ping_enabled = false
 
-		if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-			sticky_ping_enabled = not sticky_ping_enabled
+			if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+				sticky_ping_enabled = not sticky_ping_enabled
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			sticky_ping_enabled = false
 
 
 func _physics_process(delta: float) -> void:
