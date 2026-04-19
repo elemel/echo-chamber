@@ -3,26 +3,26 @@
 [ext_resource type="Script" uid="uid://b602h0bhde36j" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="Material" uid="uid://doaqtoc3f68k7" path="res://materials/echo.tres" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://dfes40ur2tsiw" path="res://scripts/compass.gd" id="4_tbgi4"]
-[ext_resource type="Script" uid="uid://cfrxka87kii7r" path="res://scripts/pause_menu.gd" id="5_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://chtwre3p3tns1" path="res://scenes/levels/level_b.tscn" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://cfrxka87kii7r" path="res://scripts/menu.gd" id="5_tbgi4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
 font_size = 50
 
-[sub_resource type="LabelSettings" id="LabelSettings_tbgi4"]
-font_size = 20
-
-[node name="Main" type="Node3D" unique_id=207641871 groups=["mains"]]
+[node name="Main" type="Node3D" unique_id=207641871 node_paths=PackedStringArray("levels") groups=["mains"]]
 script = ExtResource("1_sugp2")
 echo_material = ExtResource("2_jyhfs")
+levels = NodePath("Levels")
 
-[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "compass_button", "invert_mouse_button")]
+[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "title_label", "start_button", "compass_button", "invert_mouse_button", "quit_button")]
 process_mode = 3
 script = ExtResource("5_tbgi4")
 main = NodePath("..")
 compass_layer = NodePath("../Compass")
+title_label = NodePath("CenterContainer/VBoxContainer/Title")
+start_button = NodePath("CenterContainer/VBoxContainer/Start")
 compass_button = NodePath("CenterContainer/VBoxContainer/Compass")
 invert_mouse_button = NodePath("CenterContainer/VBoxContainer/InvertMouse")
+quit_button = NodePath("CenterContainer/VBoxContainer/Quit")
 
 [node name="CenterContainer" type="CenterContainer" parent="Menu" unique_id=649409549]
 anchors_preset = 15
@@ -38,11 +38,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Chamber"
 label_settings = SubResource("LabelSettings_sugp2")
-horizontal_alignment = 1
-
-[node name="Blank" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=272538576]
-layout_mode = 2
-label_settings = SubResource("LabelSettings_tbgi4")
 horizontal_alignment = 1
 
 [node name="Start" type="Button" parent="Menu/CenterContainer/VBoxContainer" unique_id=1656852974]
@@ -97,7 +92,7 @@ width = 1.0
 
 [node name="Levels" type="Node3D" parent="." unique_id=945481137]
 
-[node name="LevelB" parent="Levels" unique_id=557498288 instance=ExtResource("5_tefeu")]
-
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Start" to="Menu" method="_on_start_pressed"]
 [connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Compass" to="Menu" method="_on_compass_pressed"]
 [connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/InvertMouse" to="Menu" method="_on_invert_mouse_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Quit" to="Menu" method="_on_quit_pressed"]

@@ -2,8 +2,10 @@ extends Node3D
 class_name Main
 
 @export var echo_material: ShaderMaterial
+@export var levels: Node3D
 
 var invert_mouse := false
+var level: Level
 
 var _time := 0.0
 
@@ -26,6 +28,23 @@ func _ready() -> void:
 
 	echo_material.set_shader_parameter("debug", 0.0)
 	update_material()
+
+
+func start_level(level_name: String) -> void:
+	quit_level()
+
+	var level_path := "res://scenes/levels/" + level_name + ".tscn"
+	var level_scene := load(level_path) as PackedScene
+	level = level_scene.instantiate()
+	levels.add_child(level)
+
+
+func quit_level() -> void:
+	if level != null:
+		level.queue_free()
+		level = null
+
+		clear_pings()
 
 
 func clear_pings() -> void:

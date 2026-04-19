@@ -12,6 +12,13 @@ func _process(_delta):
 	var camera = get_viewport().get_camera_3d()
 
 	if not camera:
+		horizon_line.visible = false
+
+		north_line.visible = false
+		east_line.visible = false
+		south_line.visible = false
+		west_line.visible = false
+
 		return
 		
 	var screen_size = get_viewport().get_visible_rect().size

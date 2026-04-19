@@ -17,4 +17,3 @@ func _physics_process(_delta: float) -> void:
 		player_character = player_character_scene.instantiate()
 		get_parent().add_child(player_character)
 		player_character.global_position = global_position
-		print("Spawned")

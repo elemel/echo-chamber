@@ -13,6 +13,7 @@ var main: Main
 var pitch := 0.0
 var current_ping_cooldown := 0.0
 var ping_enabled := false
+var sticky_ping_enabled := false
 
 
 func _ready() -> void:
@@ -29,6 +30,13 @@ func _input(event):
 
 		$CameraPivot.rotation.x = pitch
 
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			sticky_ping_enabled = false
+
+		if event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+			sticky_ping_enabled = not sticky_ping_enabled
+
 
 func _physics_process(delta: float) -> void:
 	current_ping_cooldown -= delta
@@ -36,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		ping_enabled = true
 
-	if ping_enabled and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and current_ping_cooldown < 0.0:
+	if (ping_enabled and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or sticky_ping_enabled)  and current_ping_cooldown < 0.0:
 		current_ping_cooldown = ping_cooldown * randf_range(0.9, 1.1)
 		ping()
 
