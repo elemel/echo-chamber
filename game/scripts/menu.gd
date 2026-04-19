@@ -9,6 +9,7 @@ class_name GameMenu
 @export var jump_label: Label
 @export var ping_label: Label
 @export var sticky_ping_label: Label
+@export var pause_label: Label
 
 @export var start_button: Button
 @export var resume_button: Button
@@ -21,11 +22,16 @@ class_name GameMenu
 var compass_enabled := true
 var message: String
 var exit_enabled := false
-
+var escape_enabled := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	escape_enabled = OS.has_feature("pc")
 	exit_enabled = OS.has_feature("pc")
+
+	if escape_enabled:
+		pause_label.text = "Pause with P or Escape Key"
+
 	pause()
 
 
@@ -35,7 +41,7 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("pause") or escape_enabled and event.is_action_pressed("ui_cancel"):
 		if get_tree().paused:
 			if main.level == null:
 				get_tree().quit()
@@ -53,6 +59,7 @@ func update() -> void:
 		jump_label.visible = false
 		ping_label.visible = false
 		sticky_ping_label.visible = false
+		pause_label.visible = false
 
 		start_button.visible = false
 		resume_button.visible = false
@@ -69,6 +76,7 @@ func update() -> void:
 		jump_label.visible = true
 		ping_label.visible = true
 		sticky_ping_label.visible = true
+		pause_label.visible = true
 
 		start_button.visible = true
 		resume_button.visible = false
@@ -85,6 +93,7 @@ func update() -> void:
 		jump_label.visible = true
 		ping_label.visible = true
 		sticky_ping_label.visible = true
+		pause_label.visible = true
 
 		start_button.visible = false
 		resume_button.visible = true
