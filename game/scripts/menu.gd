@@ -22,29 +22,28 @@ class_name GameMenu
 var compass_enabled := true
 var message: String
 var exit_enabled := false
-var escape_enabled := false
+var cancel_enabled := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	escape_enabled = OS.has_feature("pc")
+	cancel_enabled = OS.has_feature("pc")
 	exit_enabled = OS.has_feature("pc")
 
-	if escape_enabled:
+	if cancel_enabled:
 		pause_label.text = "Pause with P or Escape Key"
 
 	pause()
 
 
-func _process(_delta: float) -> void:
-	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE and not get_tree().paused:
-		pause()
-
-
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause") or escape_enabled and event.is_action_pressed("ui_cancel"):
+	var is_pause_action := event.is_action_pressed("pause")
+	var is_cancel_action := cancel_enabled and event.is_action_pressed("ui_cancel")
+
+	if is_pause_action or is_cancel_action:
 		if get_tree().paused:
 			if main.level == null:
-				get_tree().quit()
+				if is_cancel_action:
+					get_tree().quit()
 			else:
 				resume()
 				message = ""
