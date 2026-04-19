@@ -19,7 +19,7 @@ echo_material = ExtResource("2_jyhfs")
 levels = NodePath("Levels")
 menu = NodePath("Menu")
 
-[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "title_label", "warning_label", "move_label", "jump_label", "throw_flare_label", "pause_label", "start_button", "resume_button", "continue_button", "compass_button", "invert_mouse_button", "quit_button", "exit_button")]
+[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "title_label", "warning_label", "move_label", "throw_flare_label", "pause_label", "start_button", "resume_button", "continue_button", "compass_button", "invert_mouse_button", "quit_button", "exit_button")]
 process_mode = 3
 script = ExtResource("5_tbgi4")
 main = NodePath("..")
@@ -27,7 +27,6 @@ compass_layer = NodePath("../Compass")
 title_label = NodePath("CenterContainer/VBoxContainer/Title")
 warning_label = NodePath("CenterContainer/VBoxContainer/Warning")
 move_label = NodePath("CenterContainer/VBoxContainer/Move")
-jump_label = NodePath("CenterContainer/VBoxContainer/Jump")
 throw_flare_label = NodePath("CenterContainer/VBoxContainer/ThrowFlare")
 pause_label = NodePath("CenterContainer/VBoxContainer/Pause")
 start_button = NodePath("CenterContainer/VBoxContainer/Start")
@@ -67,12 +66,6 @@ horizontal_alignment = 1
 [node name="Move" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=1702529588]
 layout_mode = 2
 text = "Move with WASD or Arrow Keys"
-label_settings = SubResource("LabelSettings_jyhfs")
-horizontal_alignment = 1
-
-[node name="Jump" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=1735813156]
-layout_mode = 2
-text = "Jump with Space Bar"
 label_settings = SubResource("LabelSettings_jyhfs")
 horizontal_alignment = 1
 

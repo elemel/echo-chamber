@@ -3,7 +3,6 @@ class_name PlayerCharacter
 
 @export var move_speed := 3.0
 @export var move_acceleration := 10.0
-@export var jump_speed := 4.0
 @export var flare_cooldown := 1.0
 
 @export var mouse_sensitivity := 0.002
@@ -74,11 +73,7 @@ func _physics_process(delta: float) -> void:
 
 	var collider := ray_cast.get_collider()
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and collider != null:
-		apply_central_impulse(Vector3.UP * jump_speed * mass)
-
-	if collider != null and not Input.is_action_pressed("jump"):
+	if collider != null:
 		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		var direction := (camera_turner.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 

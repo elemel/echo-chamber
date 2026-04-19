@@ -7,7 +7,6 @@ class_name GameMenu
 @export var title_label: Label
 @export var warning_label: Label
 @export var move_label: Label
-@export var jump_label: Label
 @export var throw_flare_label: Label
 @export var pause_label: Label
 
@@ -57,7 +56,6 @@ func update(grab_focus := true) -> void:
 		title_label.text = message
 		warning_label.visible = false
 		move_label.visible = false
-		jump_label.visible = false
 		throw_flare_label.visible = false
 		pause_label.visible = false
 
@@ -75,7 +73,6 @@ func update(grab_focus := true) -> void:
 		title_label.text = "Echo Chamber"
 		warning_label.visible = true
 		move_label.visible = true
-		jump_label.visible = true
 		throw_flare_label.visible = true
 		pause_label.visible = true
 
@@ -93,7 +90,6 @@ func update(grab_focus := true) -> void:
 		title_label.text = "Paused"
 		warning_label.visible = true
 		move_label.visible = true
-		jump_label.visible = true
 		throw_flare_label.visible = true
 		pause_label.visible = true
 
