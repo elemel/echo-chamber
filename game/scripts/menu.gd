@@ -143,7 +143,7 @@ func resume() -> void:
 
 
 func _on_start_pressed() -> void:
-	main.start_level("level_b")
+	main.start_level("level_1")
 	resume()
 
 
