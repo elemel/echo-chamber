@@ -29,6 +29,7 @@ func _process(_delta):
 	var v_fov = camera.fov 
 	var v_offset = (pitch / v_fov) * screen_size.y
 	horizon_line.position.y = center.y + v_offset
+	horizon_line.visible = abs(v_offset) < (0.5 * screen_size.y)
 
 	# --- Horizontal Movement (Yaw) ---
 	var yaw = fmod(camera.get_parent().get_parent().rotation_degrees.y, 360.0)

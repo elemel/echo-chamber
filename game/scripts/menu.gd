@@ -52,7 +52,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			pause()
 
 
-func update() -> void:
+func update(grab_focus := true) -> void:
 	if message != "":
 		title_label.text = message
 		move_label.visible = false
@@ -69,7 +69,8 @@ func update() -> void:
 		quit_button.visible = false
 		exit_button.visible = false
 
-		continue_button.grab_focus()
+		if grab_focus:
+			continue_button.grab_focus()
 	elif main.level == null:
 		title_label.text = "Echo Chamber"
 		move_label.visible = true
@@ -86,7 +87,8 @@ func update() -> void:
 		quit_button.visible = false
 		exit_button.visible = exit_enabled
 
-		start_button.grab_focus()
+		if grab_focus:
+			start_button.grab_focus()
 	else:
 		title_label.text = "Paused"
 		move_label.visible = true
@@ -103,7 +105,8 @@ func update() -> void:
 		quit_button.visible = true
 		exit_button.visible = false
 
-		resume_button.grab_focus()
+		if grab_focus:
+			resume_button.grab_focus()
 
 	if compass_enabled:
 		compass_button.text = "Compass: On"
@@ -160,12 +163,12 @@ func _on_continue_pressed() -> void:
 
 func _on_compass_pressed() -> void:
 	compass_enabled = not compass_enabled
-	update()
+	update(false)
 
 
 func _on_invert_mouse_pressed() -> void:
 	main.invert_mouse = not main.invert_mouse
-	update()
+	update(false)
 
 
 func _on_quit_pressed() -> void:
