@@ -1,21 +1,31 @@
 extends CanvasLayer
-class_name PauseMenu
+class_name GameMenu
 
 @export var main: Main
 @export var compass_layer: CanvasLayer
 
 @export var title_label: Label
+@export var move_label: Label
+@export var jump_label: Label
+@export var ping_label: Label
+@export var sticky_ping_label: Label
 
 @export var start_button: Button
+@export var resume_button: Button
+@export var continue_button: Button
 @export var compass_button: Button
 @export var invert_mouse_button: Button
 @export var quit_button: Button
+@export var exit_button: Button
 
 var compass_enabled := true
+var message: String
+var exit_enabled := false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	exit_enabled = OS.has_feature("pc")
 	pause()
 
 
@@ -27,21 +37,64 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if get_tree().paused:
-			if main.level != null:
-				unpause()
+			if main.level == null:
+				get_tree().quit()
+			else:
+				resume()
+				message = ""
 		else:
 			pause()
 
 
 func update() -> void:
-	if main.level == null:
-		title_label.text = "Echo Chamber"
-		start_button.visible = true
+	if message != "":
+		title_label.text = message
+		move_label.visible = false
+		jump_label.visible = false
+		ping_label.visible = false
+		sticky_ping_label.visible = false
+
+		start_button.visible = false
+		resume_button.visible = false
+		continue_button.visible = true
+		compass_button.visible = false
+		invert_mouse_button.visible = false
 		quit_button.visible = false
+		exit_button.visible = false
+
+		continue_button.grab_focus()
+	elif main.level == null:
+		title_label.text = "Echo Chamber"
+		move_label.visible = true
+		jump_label.visible = true
+		ping_label.visible = true
+		sticky_ping_label.visible = true
+
+		start_button.visible = true
+		resume_button.visible = false
+		continue_button.visible = false
+		compass_button.visible = true
+		invert_mouse_button.visible = true
+		quit_button.visible = false
+		exit_button.visible = exit_enabled
+
+		start_button.grab_focus()
 	else:
 		title_label.text = "Paused"
+		move_label.visible = true
+		jump_label.visible = true
+		ping_label.visible = true
+		sticky_ping_label.visible = true
+
 		start_button.visible = false
+		resume_button.visible = true
+		continue_button.visible = false
+		compass_button.visible = true
+		invert_mouse_button.visible = true
 		quit_button.visible = true
+		exit_button.visible = false
+
+		resume_button.grab_focus()
 
 	if compass_enabled:
 		compass_button.text = "Compass: On"
@@ -49,14 +102,14 @@ func update() -> void:
 		compass_button.text = "Compass: Off"
 
 	if main.invert_mouse:
-		invert_mouse_button.text = "Invert Mouse: On"
+		invert_mouse_button.text = "Invert Mouse Y: On"
 	else:
-		invert_mouse_button.text = "Invert Mouse: Off"
+		invert_mouse_button.text = "Invert Mouse Y: Off"
 
 
 func toggle_pause() -> void:
 	if get_tree().paused:
-		unpause()
+		resume()
 	else:
 		pause()
 
@@ -67,9 +120,10 @@ func pause() -> void:
 		get_tree().paused = true
 		visible = true
 		compass_layer.visible = false
+		update()
 
 
-func unpause() -> void:
+func resume() -> void:
 	if get_tree().paused:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_tree().paused = false
@@ -79,8 +133,20 @@ func unpause() -> void:
 
 func _on_start_pressed() -> void:
 	main.start_level("level_b")
-	unpause()
-	update()
+	resume()
+
+
+func _on_resume_pressed() -> void:
+	resume()
+
+
+func _on_continue_pressed() -> void:
+	message = ""
+
+	if main.level == null:
+		update()
+	else:
+		resume()
 
 
 func _on_compass_pressed() -> void:
@@ -95,4 +161,9 @@ func _on_invert_mouse_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	main.quit_level()
+	message = ""
 	update()
+
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()

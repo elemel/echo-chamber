@@ -6,23 +6,33 @@
 [ext_resource type="Script" uid="uid://cfrxka87kii7r" path="res://scripts/menu.gd" id="5_tbgi4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
-font_size = 50
+font_size = 48
 
-[node name="Main" type="Node3D" unique_id=207641871 node_paths=PackedStringArray("levels") groups=["mains"]]
+[sub_resource type="LabelSettings" id="LabelSettings_jyhfs"]
+
+[node name="Main" type="Node3D" unique_id=207641871 node_paths=PackedStringArray("levels", "menu") groups=["mains"]]
 script = ExtResource("1_sugp2")
 echo_material = ExtResource("2_jyhfs")
 levels = NodePath("Levels")
+menu = NodePath("Menu")
 
-[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "title_label", "start_button", "compass_button", "invert_mouse_button", "quit_button")]
+[node name="Menu" type="CanvasLayer" parent="." unique_id=1039877153 node_paths=PackedStringArray("main", "compass_layer", "title_label", "move_label", "jump_label", "ping_label", "sticky_ping_label", "start_button", "resume_button", "continue_button", "compass_button", "invert_mouse_button", "quit_button", "exit_button")]
 process_mode = 3
 script = ExtResource("5_tbgi4")
 main = NodePath("..")
 compass_layer = NodePath("../Compass")
 title_label = NodePath("CenterContainer/VBoxContainer/Title")
+move_label = NodePath("CenterContainer/VBoxContainer/Move")
+jump_label = NodePath("CenterContainer/VBoxContainer/Jump")
+ping_label = NodePath("CenterContainer/VBoxContainer/Ping")
+sticky_ping_label = NodePath("CenterContainer/VBoxContainer/StickyPing")
 start_button = NodePath("CenterContainer/VBoxContainer/Start")
+resume_button = NodePath("CenterContainer/VBoxContainer/Resume")
+continue_button = NodePath("CenterContainer/VBoxContainer/Continue")
 compass_button = NodePath("CenterContainer/VBoxContainer/Compass")
 invert_mouse_button = NodePath("CenterContainer/VBoxContainer/InvertMouse")
 quit_button = NodePath("CenterContainer/VBoxContainer/Quit")
+exit_button = NodePath("CenterContainer/VBoxContainer/Exit")
 
 [node name="CenterContainer" type="CenterContainer" parent="Menu" unique_id=649409549]
 anchors_preset = 15
@@ -36,9 +46,49 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=2033329772]
 layout_mode = 2
-text = "Chamber"
+text = "Echo Chamber"
 label_settings = SubResource("LabelSettings_sugp2")
 horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Menu/CenterContainer/VBoxContainer" unique_id=219598647]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Move" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=1702529588]
+layout_mode = 2
+text = "Move with WASD or Arrow Keys"
+label_settings = SubResource("LabelSettings_jyhfs")
+horizontal_alignment = 1
+
+[node name="Jump" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=1735813156]
+layout_mode = 2
+text = "Jump with Space Bar"
+label_settings = SubResource("LabelSettings_jyhfs")
+horizontal_alignment = 1
+
+[node name="Ping" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=458569738]
+layout_mode = 2
+text = "Ping with Left Mouse Button"
+label_settings = SubResource("LabelSettings_jyhfs")
+horizontal_alignment = 1
+
+[node name="StickyPing" type="Label" parent="Menu/CenterContainer/VBoxContainer" unique_id=2006434352]
+layout_mode = 2
+text = "Toggle Sticky Ping with Right Mouse Button"
+label_settings = SubResource("LabelSettings_jyhfs")
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="Menu/CenterContainer/VBoxContainer" unique_id=576040134]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="Menu/CenterContainer/VBoxContainer" unique_id=214364899]
+layout_mode = 2
+text = "Resume"
+
+[node name="Continue" type="Button" parent="Menu/CenterContainer/VBoxContainer" unique_id=1202300698]
+layout_mode = 2
+text = "Continue"
 
 [node name="Start" type="Button" parent="Menu/CenterContainer/VBoxContainer" unique_id=1656852974]
 layout_mode = 2
@@ -50,11 +100,15 @@ text = "Compass: On"
 
 [node name="InvertMouse" type="Button" parent="Menu/CenterContainer/VBoxContainer" unique_id=933800742]
 layout_mode = 2
-text = "Invert Mouse: Off"
+text = "Invert Mouse Y: Off"
 
 [node name="Quit" type="Button" parent="Menu/CenterContainer/VBoxContainer" unique_id=1626178867]
 layout_mode = 2
 text = "Quit"
+
+[node name="Exit" type="Button" parent="Menu/CenterContainer/VBoxContainer" unique_id=1859198198]
+layout_mode = 2
+text = "Exit"
 
 [node name="Compass" type="CanvasLayer" parent="." unique_id=651597960 node_paths=PackedStringArray("horizon_line", "north_line", "east_line", "south_line", "west_line")]
 script = ExtResource("4_tbgi4")
@@ -92,7 +146,10 @@ width = 1.0
 
 [node name="Levels" type="Node3D" parent="." unique_id=945481137]
 
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Resume" to="Menu" method="_on_resume_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Continue" to="Menu" method="_on_continue_pressed"]
 [connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Start" to="Menu" method="_on_start_pressed"]
 [connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Compass" to="Menu" method="_on_compass_pressed"]
 [connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/InvertMouse" to="Menu" method="_on_invert_mouse_pressed"]
 [connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Quit" to="Menu" method="_on_quit_pressed"]
+[connection signal="pressed" from="Menu/CenterContainer/VBoxContainer/Exit" to="Menu" method="_on_exit_pressed"]

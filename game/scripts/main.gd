@@ -3,6 +3,7 @@ class_name Main
 
 @export var echo_material: ShaderMaterial
 @export var levels: Node3D
+@export var menu: GameMenu
 
 var invert_mouse := false
 var level: Level

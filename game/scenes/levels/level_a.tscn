@@ -69,11 +69,10 @@ use_collision = true
 size = Vector3(3, 3, 15)
 material = ExtResource("3_qwf4p")
 
-[node name="Goal" type="Area3D" parent="." unique_id=678407286 node_paths=PackedStringArray("level")]
+[node name="Goal" type="Area3D" parent="." unique_id=678407286]
 transform = Transform3D(0.9604348, 0, 0.27850503, 0, 1, 0, -0.27850503, 0, 0.9604348, -5.9015045, 0, -8.223862)
 script = ExtResource("5_v8w5n")
-level = NodePath("..")
-next_level_name = "level_b"
+message = "You Win"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Goal" unique_id=133118476]
 shape = SubResource("BoxShape3D_r5dgx")
